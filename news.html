@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>我的新闻中心</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: "Microsoft YaHei", sans-serif;
+			background: #f5f7fa;
+			text-align: center;
+			margin: 0;
+			padding: 40px 20px;
+		}
+
+		h1 {
+			color: #333;
+			margin-bottom: 30px;
+		}
+
+		.grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 25px;
+		}
+
+		.card {
+			width: 120px;
+			height: 120px;
+			background: #fff;
+			border-radius: 16px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s, box-shadow 0.2s;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+		}
+
+		.card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+		}
+
+		.card img {
+			width: 48px;
+			height: 48px;
+			margin-top: 10px;
+		}
+
+		.card span {
+			display: block;
+			margin-top: 10px;
+			color: #333;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>📰 我的新闻中心</h1>
+	<div class="grid">
+
+		<a href="https://www.bbc.com" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=bbc.com" alt="BBC">
+			<span>BBC</span>
+		</a>
+
+		<a href="https://edition.cnn.com" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=cnn.com" alt="CNN">
+			<span>CNN</span>
+		</a>
+
+		<a href="https://www.reuters.com" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=reuters.com" alt="Reuters">
+			<span>路透社</span>
+		</a>
+
+		<a href="https://www.thepaper.cn" target="_blank" class="card">
+			<img src="https://www.thepaper.cn/favicon.ico" alt="澎湃新闻">
+			<span>澎湃新闻</span>
+		</a>
+
+		<a href="https://news.sina.com.cn" target="_blank" class="card">
+			<img src="https://news.sina.com.cn/favicon.ico" alt="新浪新闻">
+			<span>新浪新闻</span>
+		</a>
+
+		<a href="https://www.xinhuanet.com" target="_blank" class="card">
+			<img src="https://www.xinhuanet.com/favicon.ico" alt="新华网">
+			<span>新华网</span>
+		</a>
+
+		<a href="https://www.chinadaily.com.cn" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=chinadaily.com.cn" alt="中国日报">
+			<span>中国日报</span>
+		</a>
+
+		<a href="https://www.nytimes.com" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=nytimes.com" alt="纽约时报">
+			<span>纽约时报</span>
+		</a>
+
+	</div>
+</body>
+
+</html>
