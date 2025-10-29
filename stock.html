@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>股票网站</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: "Microsoft YaHei", sans-serif;
+			background: #f5f7fa;
+			text-align: center;
+			margin: 0;
+			padding: 40px 20px;
+		}
+
+		h1 {
+			color: #333;
+			margin-bottom: 30px;
+		}
+
+		.grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 25px;
+		}
+
+		.card {
+			width: 120px;
+			height: 120px;
+			background: #fff;
+			border-radius: 16px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s, box-shadow 0.2s;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+		}
+
+		.card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+		}
+
+		.card img {
+			width: 48px;
+			height: 48px;
+			margin-top: 10px;
+		}
+
+		.card span {
+			display: block;
+			margin-top: 10px;
+			color: #333;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>❄️ 股票网站</h1>
+	<div class="grid">
+
+		<a href="http://www.cninfo.com.cn/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=cninfo.com.cn" alt="巨潮资讯网">
+			<span>巨潮资讯网</span>
+		</a>
+		<a href="https://www.eastmoney.com/default.html" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=eastmoney.com" alt="东方财富网">
+			<span>东方财富网首页</span>
+		</a>
+		<a href="https://finance.eastmoney.com/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=eastmoney.com" alt="东方财富网">
+			<span>东方财富网</span>
+		</a>
+		<a href="https://data.eastmoney.com/zjlx/detail.html" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=eastmoney.com" alt="个股资金流">
+			<span>个股资金流</span>
+		</a>
+		<a href="https://data.eastmoney.com/bbsj/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=eastmoney.com" alt="个股业绩">
+			<span>个股业绩</span>
+		</a>
+		<a href="https://www.10jqka.com.cn/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=10jqka.com.cn" alt="同花顺财经">
+			<span>同花顺财经</span>
+		</a>
+
+		<a href="https://www.szse.cn/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=szse.cn" alt="深圳证券交易所">
+			<span>深圳证券交易所</span>
+		</a>
+		<a href="https://www.sse.com.cn/" target="_blank" class="card">
+			<img src="https://www.google.com/s2/favicons?sz=64&domain=sse.com.cn" alt="上海证券交易所">
+			<span>上海证券交易所</span>
+		</a>
+	</div>
+</body>
+
+</html>
