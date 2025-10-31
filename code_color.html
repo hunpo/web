@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>文本格式化工具（Blogger 专用终极版）</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background: #f5f5f5;
+			margin: 0;
+			padding: 20px;
+		}
+
+		.container {
+			display: flex;
+			gap: 20px;
+			flex-wrap: wrap;
+		}
+
+		.box {
+			flex: 1 1 45%;
+			background: #fff;
+			border-radius: 8px;
+			padding: 15px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			min-width: 300px;
+		}
+
+		textarea {
+			width: 100%;
+			box-sizing: border-box;
+			font-family: monospace;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			padding: 10px;
+			resize: vertical;
+		}
+
+		button {
+			margin-top: 10px;
+			padding: 8px 14px;
+			border: none;
+			border-radius: 4px;
+			background: #4caf50;
+			color: white;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background: #45a049;
+		}
+
+		#preview {
+			display: flex;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			overflow: hidden;
+			min-height: 200px;
+		}
+
+		.nums {
+			background: #eee;
+			color: #666;
+			text-align: right;
+			padding: 8px;
+			white-space: pre;
+			font-family: monospace;
+			line-height: 1.1;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+		}
+
+		.text {
+			flex: 1;
+			padding: 8px;
+			white-space: pre;
+			background: #000;
+			color: #fff;
+			line-height: 1.1;
+			font-family: monospace;
+		}
+
+		.copy-btn {
+			background: #2196f3;
+			margin-top: 5px;
+		}
+
+		/* 🔍 让预览区的高亮与生成HTML一致 */
+		#preview .keyword {
+			color: var(--kwColor, #ffff00);
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>文本格式化工具</h2>
+	<div class="container">
+		<div class="box">
+			<h3>输入内容</h3>
+			<textarea id="content" rows="10" placeholder="每行一条内容"></textarea>
+			<h3>关键字</h3>
+			<textarea id="keywords" rows="5" placeholder="以空格、逗号或换行分隔多个关键字"></textarea>
+			<div>
+				<label>关键字颜色：</label>
+				<input type="color" id="kwColor" value="#FFFF00" /><br />
+				<label>背景颜色：</label>
+				<input type="color" id="bgColor" value="#000000" /><br />
+				<label>文字颜色：</label>
+				<input type="color" id="txtColor" value="#FFFFFF" />
+			</div>
+			<button id="genBtn">生成HTML</button>
+		</div>
+
+		<div class="box">
+			<h3>预览</h3>
+			<div id="preview">
+			</div>
+			<h3>生成HTML</h3>
+			<textarea id="htmlCode" rows="10" readonly></textarea>
+			<button id="copyBtn" class="copy-btn" disabled>复制代码</button>
+		</div>
+	</div>
+
+	<script>
+		window.onload = () => {
+			const $ = id => document.getElementById(id);
+			const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+			$('genBtn').onclick = () => {
+				const content = $('content').value;
+				const keywords = $('keywords').value.trim();
+				if (!content.trim()) return alert('请输入内容');
+				if (!keywords) return alert('请输入关键字');
+
+				const kwList = keywords.split(/[,，\s\n]+/).filter(Boolean);
+				const lines = content.split(/\r?\n/);
+				const uniqueId = 'box_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+
+				let htmlLines = '';
+				let nums = '';
+				let textPreview = '';
+
+				lines.forEach((line, i) => {
+					let newline = line
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/>/g, '&gt;');
+					kwList.forEach(kw => {
+						const reg = new RegExp(escapeRegExp(kw), 'g');
+						newline = newline.replace(reg, `<span class="keyword">${kw}</span>`);
+					});
+					nums += (i + 1) + '\n';
+					textPreview += newline + '\n';
+					htmlLines += `<div style="display:grid;grid-template-columns:40px 1fr;font-family:monospace;line-height:1.1;">
+						<div class="line-num">${i + 1}</div>
+						<pre style="margin:0;white-space:pre-wrap;word-break:break-word;"><code>${newline}</code></pre>
+					</div>`;
+				});
+				document.documentElement.style.setProperty('--kwColor', $('kwColor').value);
+
+				$('preview').innerHTML =
+					`<div class="nums" style="background:${$('bgColor').value};color:${$('txtColor').value};">${nums}</div>` +
+					`<div class="text" style="background:${$('bgColor').value};color:${$('txtColor').value};white-space:pre-wrap;word-break:break-word;">${textPreview}</div>`;
+
+				const finalHtml = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+body{font-family:monospace !important;background:#f5f5f5 !important;padding:20px !important;}
+#${uniqueId} .content{
+  position:relative;
+  background:${$('bgColor').value} !important;
+  color:${$('txtColor').value} !important;
+  padding:20px;
+  border-radius:8px;
+  font-family:monospace !important;
+  line-height:1.2;
+  overflow-wrap:break-word;
+  word-break:break-word;
+}
+#${uniqueId} .keyword{
+  color:${$('kwColor').value} !important;
+  font-weight:bold !important;
+}
+#${uniqueId} .line-num{
+  user-select:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  color:#888 !important;
+  text-align:right;
+  padding-right:8px;
+}
+#${uniqueId} pre, #${uniqueId} code, #${uniqueId} span {
+  background:none !important;
+  color:inherit !important;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+#${uniqueId} .copy-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:rgba(50,50,50,0.6) !important;
+  color:white !important;
+  border:none;
+  padding:6px 10px;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:13px;
+}
+#${uniqueId} .copy-btn:hover{
+  background:rgba(70,70,70,0.9) !important;
+}
+</style>
+</head>
+<body>
+<div class="container" id="${uniqueId}">
+  <div class="content">
+    <button class="copy-btn" onclick="copyText('${uniqueId}')">Copy</button>
+    ${htmlLines}
+  </div>
+</div>
+<script>
+function copyText(id){
+  const box=document.getElementById(id);
+  const codes=Array.from(box.querySelectorAll('code')).map(c=>c.textContent).join('\\n');
+  const temp=document.createElement('textarea');
+  temp.value=codes;
+  document.body.appendChild(temp);
+  temp.select();
+  try{
+    document.execCommand('copy');
+    const btn=box.querySelector('.copy-btn');
+    btn.innerHTML = '<img src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" width="16" style="vertical-align:middle;"> Copied';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  }catch(err){
+    alert('复制失败，请手动复制');
+  }
+  document.body.removeChild(temp);
+}
+<\/script>
+</body>
+</html>`;
+
+				$('htmlCode').value = finalHtml;
+				$('copyBtn').disabled = false;
+			};
+
+			$('copyBtn').onclick = async () => {
+				try {
+					await navigator.clipboard.writeText($('htmlCode').value);
+					$('copyBtn').textContent = '已复制';
+					setTimeout(() => $('copyBtn').textContent = '复制代码', 2000);
+				} catch {
+					alert('复制失败，请手动复制');
+				}
+			};
+		};
+	</script>
+</body>
+
+</html>

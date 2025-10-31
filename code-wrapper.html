@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>代码包裹生成器</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+      line-height: 1.6;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 1em;
+      font-family: monospace;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1em;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    #copy-wrapper {
+      display: inline-block;
+    }
+    #copy-msg {
+      color: green;
+      margin-left: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>代码自动包裹生成器</h2>
+
+  <label for="lang">语言（如 html, js, css, python）:</label>
+  <input type="text" id="lang" value="html" />
+  <br><br>
+
+  <textarea id="input" placeholder="在此粘贴你的代码..."></textarea>
+  <button onclick="wrapCode()">生成</button>
+
+  <span id="copy-wrapper">
+    <button id="copyBtn" onclick="copyOutput()" disabled>复制</button>
+    <span id="copy-msg">✅ 已复制到剪贴板！</span>
+  </span>
+
+  <h3>输出结果（可复制到博客/Docsify 中）:</h3>
+  <pre id="output"></pre>
+
+  <script>
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+    }
+
+    function wrapCode() {
+      const lang = document.getElementById('lang').value.trim() || 'html';
+      const code = document.getElementById('input').value;
+      const escaped = escapeHTML(code);
+      const output = `<pre class="line-numbers"><code class="lang-${lang}">\n${escaped}\n</code></pre>`;
+      document.getElementById('output').textContent = output;
+
+      // 启用复制按钮，隐藏提示
+      document.getElementById('copyBtn').disabled = false;
+      document.getElementById('copy-msg').style.display = 'none';
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('output').textContent.trim();
+      if (!output) return; // 防止复制空内容
+
+      navigator.clipboard.writeText(output).then(() => {
+        const msg = document.getElementById('copy-msg');
+        msg.style.display = 'inline';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      });
+    }
+  </script>
+</body>
+</html>
