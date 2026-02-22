@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>代码高亮预览生成器 - 切换版</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      background-color: #fcfcfc;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 1em;
+      font-family: monospace;
+      padding: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 1em;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #copyBtn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .config {
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>🚀 Blogger 代码块生成器 (带开关预览)</h2>
+    <div class="config">
+      <label>语言类型: </label>
+      <input type="text" id="lang" value="html">
+      <small>（输入 html 开启预览功能）</small>
+    </div>
+    <textarea id="input" placeholder="请在此粘贴 HTML 代码..."></textarea>
+    <div style="margin-bottom: 20px;">
+      <button onclick="generate()">生成预览代码</button>
+      <button id="copyBtn" onclick="copyIt()" disabled style="background-color: #28a745;">复制结果</button>
+      <span id="msg" style="color: green; display:none; margin-left:10px;">已复制!</span>
+    </div>
+    <h3>预览输出内容:</h3>
+    <pre id="output"></pre>
+  </div>
+
+  <script>
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function generate() {
+      const lang = document.getElementById('lang').value.trim().toLowerCase();
+      const code = document.getElementById('input').value;
+      const escaped = escapeHTML(code);
+      let result = "";
+
+      if (lang === 'html') {
+        // 生成带有“开关”逻辑的 HTML
+        result = `<div class="code-sandbox">
+<pre class="line-numbers"><code class="lang-html">
+${escaped}
+</code></pre>
+<button class="run-btn" onclick="togglePreview(this)" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; transition: 0.3s;">运行预览</button>
+<div class="preview-container" style="display:none; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 4px; border: 1px solid #eee;">
+    <p style="font-size: 12px; color: #666; margin: 0 0 5px 0;">预览窗口：</p>
+    <iframe class="preview-iframe" style="width: 100%; height: 350px; border: 1px solid #ddd; background: white;"></iframe>
+</div>
+</div>`;
+      } else {
+        result = `<pre class="line-numbers"><code class="lang-${lang}">\n${escaped}\n</code></pre>`;
+      }
+
+      document.getElementById('output').textContent = result;
+      document.getElementById('copyBtn').disabled = false;
+    }
+
+    function copyIt() {
+      const text = document.getElementById('output').textContent;
+      navigator.clipboard.writeText(text);
+      const msg = document.getElementById('msg');
+      msg.style.display = 'inline';
+      setTimeout(() => msg.style.display = 'none', 2000);
+    }
+  </script>
+</body>
+
+</html>
