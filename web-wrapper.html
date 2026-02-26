@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Blogger 增强版代码生成器</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', sans-serif;
+			margin: 2em auto;
+			max-width: 1100px;
+			background-color: #f4f7f6;
+		}
+
+		.card {
+			background: white;
+			padding: 30px;
+			border-radius: 12px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+		}
+
+		.input-group {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 15px;
+			margin-bottom: 20px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 250px;
+			font-family: monospace;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			box-sizing: border-box;
+		}
+
+		.actions {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 12px 30px;
+			cursor: pointer;
+			border: none;
+			border-radius: 6px;
+			font-weight: bold;
+		}
+
+		.btn-gen {
+			background: #007bff;
+			color: white;
+		}
+
+		.btn-copy {
+			background: #28a745;
+			color: white;
+			margin-left: 10px;
+		}
+
+		pre#output {
+			background: #2d2d2d;
+			color: #ccc;
+			padding: 15px;
+			border-radius: 6px;
+			white-space: pre-wrap;
+			word-break: break-all;
+			font-size: 12px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="card">
+		<h2>🚀 Blogger 代码展示 + 预览生成器</h2>
+		<div class="input-group">
+			<div class="box"><label>HTML</label><textarea id="in-html"></textarea></div>
+			<div class="box"><label>CSS</label><textarea id="in-css"></textarea></div>
+			<div class="box"><label>JS</label><textarea id="in-js"></textarea></div>
+		</div>
+		<div class="actions">
+			<button class="btn-gen" onclick="generate()">生成完整代码块</button>
+			<button id="copyBtn" class="btn-copy" onclick="copyCode()" disabled>复制结果</button>
+		</div>
+		<pre id="output">等待生成...</pre>
+	</div>
+
+	<script>
+		function escapeHTML(str) {
+			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		}
+
+		function generate() {
+			const html = document.getElementById('in-html').value;
+			const css = document.getElementById('in-css').value;
+			const js = document.getElementById('in-js').value;
+
+			// 生成的 HTML 结构：标题 + Prism 代码块 + 隐藏数据 + 按钮 + Iframe
+			const finalResult = `<div class="custom-demo-wrapper" style="margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; background: #fff; padding: 15px;">
+    
+    <h4 style="margin: 0 0 10px 0; color: #555;">HTML 代码</h4>
+    <pre class="language-html"><code>${escapeHTML(html)}</code></pre>
+
+    <h4 style="margin: 15px 0 10px 0; color: #555;">CSS 代码</h4>
+    <pre class="language-css"><code>${escapeHTML(css)}</code></pre>
+
+    <h4 style="margin: 15px 0 10px 0; color: #555;">JavaScript 代码</h4>
+    <pre class="language-javascript"><code>${escapeHTML(js)}</code></pre>
+
+    <div class="raw-data" style="display:none;">
+        <div class="raw-html">${escapeHTML(html)}</div>
+        <div class="raw-css">${escapeHTML(css)}</div>
+        <div class="raw-js">${escapeHTML(js)}</div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+    
+    <div style="text-align: center;">
+        <button onclick="runBloggerDemo(this)" style="background: #007bff; color: #fff; border: none; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">点击运行预览</button>
+    </div>
+
+    <div class="preview-area" style="display:none; margin-top: 15px; border: 2px solid #f0f0f0; border-radius: 6px;">
+        <div style="background: #f8f9fa; padding: 5px 10px; font-size: 12px; color: #999; border-bottom: 1px solid #eee;">预览效果窗口</div>
+        <iframe class="demo-frame" style="width: 100%; border: none; background: #fff; display: block;"></iframe>
+    </div>
+</div>
+`;
+
+			document.getElementById('output').textContent = finalResult;
+			document.getElementById('copyBtn').disabled = false;
+		}
+
+		function copyCode() {
+			const text = document.getElementById('output').textContent;
+			navigator.clipboard.writeText(text);
+			alert("已复制！请贴入 Blogger 的 HTML 视图模式。");
+		}
+	</script>
+</body>
+
+</html>

@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>我的AI中心</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<style>
 		body {
 			font-family: "Microsoft YaHei", sans-serif;
@@ -36,6 +37,13 @@
 			text-align: center;
 			padding: 10px;
 			text-decoration: none;
+			/* ✅ 新增 */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			/* 垂直居中 */
+			align-items: center;
+			/* 水平居中 */
 		}
 
 		.card:hover {
@@ -46,7 +54,6 @@
 		.card img {
 			width: 48px;
 			height: 48px;
-			margin-top: 10px;
 		}
 
 		.card span {
@@ -116,15 +123,15 @@
 			<span>HighlightCode</span>
 		</a>
 		<a href="https://bandwagonhost.com/" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=bandwagonhost.com" alt="BandwagonHost">
+			<i class="fa-solid fa-person-digging" style="font-size:xx-large;color:#ec7607;align-content: center;"></i>
 			<span>BandwagonHost</span>
 		</a>
 		<a href="https://www.redux.org.cn/" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=redux.org.cn" alt="Redux">
+			<i class="fa-brands fa-firefox" style="font-size:xx-large;color:#ec7607;align-content: center;"></i>
 			<span>Redux</span>
 		</a>
 		<a href="https://ant.design/index-cn" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=ant.design" alt="Ant Design">
+			<i class="fa-solid fa-bacterium" style="font-size:xx-large;color:#550dda;align-content: center;"></i>
 			<span>Ant Design</span>
 		</a>
 		<a href="https://react.docschina.org/" target="_blank" class="card">
@@ -136,16 +143,20 @@
 			<span>知乎知道</span>
 		</a>
 		<a href="https://hunpo.github.io/web/code_color.html" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=hunpo.github.io" alt="代码高亮">
+			<i class="fa-regular fa-star" style="font-size:xx-large;color:#1aee48;align-content: center;"></i>
 			<span>代码高亮</span>
 		</a>
 		<a href="https://hunpo.github.io/web/code-wrapper.html" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=hunpo.github.io" alt="代码包装器">
+			<i class="fa-brands fa-accessible-icon" style="font-size:xx-large;color:#ee05bc;align-content: center;"></i>
 			<span>代码包装器</span>
 		</a>
 		<a href="https://hunpo.github.io/web/html-wrapper.html" target="_blank" class="card">
-			<img src="https://www.google.com/s2/favicons?sz=64&domain=hunpo.github.io" alt="html代码包装器">
+			<i class="fa-solid fa-archway" style="font-size:xx-large;color:#e98dcd;align-content: center;"></i>
 			<span>html代码包装器</span>
+		</a>
+		<a href="https://hunpo.github.io/web/web-wrapper.html" target="_blank" class="card">
+			<i class="fa-solid fa-cat" style="font-size:xx-large;color:#e40c17;align-content: center;"></i>
+			<span>web代码包装器</span>
 		</a>
 		<a href="https://snippet-generator.app/?description=&tabtrigger=&snippet=&mode=vscode" target="_blank"
 			class="card">
