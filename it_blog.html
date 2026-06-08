@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>IT_Blog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<style>
+		body {
+			font-family: 'Microsoft YaHei', sans-serif;
+			background: #f5f7fa;
+			text-align: center;
+			margin: 0;
+			padding: 40px 20px;
+		}
+
+		h1 {
+			color: #333;
+			margin-bottom: 30px;
+		}
+
+		.grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 25px;
+		}
+
+		.card {
+			width: 120px;
+			height: 120px;
+			background: #fff;
+			border-radius: 16px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition:
+				transform 0.2s,
+				box-shadow 0.2s;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+			/* ✅ 新增 */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			/* 垂直居中 */
+			align-items: center;
+			/* 水平居中 */
+		}
+
+		.card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+		}
+
+		.card img {
+			width: 48px;
+			height: 48px;
+		}
+
+		.card span {
+			display: block;
+			margin-top: 10px;
+			color: #333;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>📰 收藏的IT_Blog</h1>
+	<div class="grid">
+		<a href="https://kagol.github.io/blogs/tech/overview.html" target="_blank" class="card">
+			<i class="fa-solid fa-font-awesome" style="font-size: xx-large; color: #3ed410" alt="前端"></i>
+			<span>前端10年：我的前端技术之旅</span>
+		</a>
+	</div>
+</body>
+
+</html>
