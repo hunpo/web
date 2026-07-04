@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
-			font-family: "Microsoft YaHei", sans-serif;
+			font-family: 'Microsoft YaHei', sans-serif;
 			background: #f5f7fa;
 			text-align: center;
 			margin: 0;
@@ -33,10 +33,19 @@
 			background: #fff;
 			border-radius: 16px;
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			transition: transform 0.2s, box-shadow 0.2s;
+			transition:
+				transform 0.2s,
+				box-shadow 0.2s;
 			text-align: center;
 			padding: 10px;
 			text-decoration: none;
+			/* ✅ 新增 */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			/* 垂直居中 */
+			align-items: center;
+			/* 水平居中 */
 		}
 
 		.card:hover {
@@ -47,7 +56,6 @@
 		.card img {
 			width: 48px;
 			height: 48px;
-			margin-top: 10px;
 		}
 
 		.card span {
@@ -92,11 +100,14 @@
 			<img src="https://www.nikkei.com/favicon.ico" alt="日经新闻">
 			<span>日经新闻</span>
 		</a>
+		<a href="https://tw.yahoo.com/" target="_blank" class="card">
+			<i class="fa-solid fa-apple-whole" style="font-size: xx-large; color: red" alt="雅虎台湾"></i>
+			<span>雅虎台湾</span>
+		</a>
 		<a href="https://asia.nikkei.com/" target="_blank" class="card">
-			<i class="fa-regular fa-newspaper" style="font-size:16px; color:#1ae066;"></i>
+			<i class="fa-solid fa-bicycle" style="font-size: xx-large; color: rgb(7, 243, 231)" alt="日经亚洲"></i>
 			<span>日经亚洲</span>
 		</a>
-
 
 		<a href="https://www.chinadaily.com.cn" target="_blank" class="card">
 			<img src="https://www.google.com/s2/favicons?sz=64&domain=chinadaily.com.cn" alt="中国日报">
